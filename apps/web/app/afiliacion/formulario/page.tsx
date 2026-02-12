@@ -1,6 +1,7 @@
 import AfiliacionAlert from "./AfiliacionAlert";
 import AfiliacionForm from "./AfiliacionForm";
 import { wpFetch } from "@/lib/wp";
+import { Suspense } from "react";
 
 type WpFormato = {
   id: number;
@@ -51,7 +52,9 @@ export default async function AfiliacionFormularioPage() {
         </p>
       </section>
 
-      <AfiliacionAlert />
+      <Suspense fallback={null}>
+        <AfiliacionAlert />
+      </Suspense>
 
       {/* Formulario + Info */}
       <section className="grid md:grid-cols-2 gap-6">
