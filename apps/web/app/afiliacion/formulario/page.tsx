@@ -1,4 +1,40 @@
-export default function AfiliacionFormularioPage() {
+import AfiliacionAlert from "./AfiliacionAlert";
+import AfiliacionForm from "./AfiliacionForm";
+import { wpFetch } from "@/lib/wp";
+
+type WpFormato = {
+  id: number;
+  acf?: {
+    formato_afiliacion?: number;
+  };
+};
+
+type WpMedia = {
+  id: number;
+  source_url: string;
+};
+
+export default async function AfiliacionFormularioPage() {
+  let formatoUrl =
+    process.env.NEXT_PUBLIC_AFILIACION_FORMATO_URL ||
+    "/formatos/formato-afiliacion.docx";
+
+  try {
+    const formatos = await wpFetch<WpFormato[]>(
+      "/formato_afiliacion?per_page=1&orderby=date&order=desc"
+    );
+    const item = Array.isArray(formatos) ? formatos[0] : null;
+    const mediaId = item?.acf?.formato_afiliacion;
+    if (mediaId) {
+      const media = await wpFetch<WpMedia>(`/media/${mediaId}`);
+      if (media?.source_url) {
+        formatoUrl = media.source_url;
+      }
+    }
+  } catch {
+    // Si falla, usamos el fallback local/ENV
+  }
+
   return (
     <main className="max-w-6xl mx-auto p-6 md:p-10">
       {/* Header */}
@@ -15,128 +51,11 @@ export default function AfiliacionFormularioPage() {
         </p>
       </section>
 
+      <AfiliacionAlert />
+
       {/* Formulario + Info */}
       <section className="grid md:grid-cols-2 gap-6">
-        {/* FORMULARIO */}
-        <form className="border rounded-3xl p-8 space-y-6">
-          {/* Nombres / Apellidos */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Nombres
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="Ingrese sus nombres"
-                className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Apellidos
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="Ingrese sus apellidos"
-                className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring"
-              />
-            </div>
-          </div>
-
-          {/* DNI / Celular */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                DNI
-              </label>
-              <input
-                type="text"
-                required
-                inputMode="numeric"
-                pattern="[0-9]{8}"
-                placeholder="8 dígitos"
-                className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Celular
-              </label>
-              <input
-                type="text"
-                required
-                inputMode="numeric"
-                pattern="[0-9]{9}"
-                placeholder="9 dígitos"
-                className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring"
-              />
-            </div>
-          </div>
-
-          {/* Correo */}
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Correo electrónico
-            </label>
-            <input
-              type="email"
-              required
-              placeholder="correo@ejemplo.com"
-              className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring"
-            />
-          </div>
-
-          {/* Área / Sede */}
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Área / Unidad
-              </label>
-              <input
-                type="text"
-                placeholder="Área o unidad de trabajo"
-                className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Sede
-              </label>
-              <input
-                type="text"
-                placeholder="Sede o ubicación"
-                className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring"
-              />
-            </div>
-          </div>
-
-          {/* Comentario */}
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Comentario (opcional)
-            </label>
-            <textarea
-              rows={4}
-              placeholder="Puede agregar un comentario adicional"
-              className="w-full border rounded-xl px-4 py-2 focus:outline-none focus:ring"
-            />
-          </div>
-
-          {/* Botón */}
-          <div className="pt-4">
-            <button
-              type="submit"
-              className="w-full bg-black text-white py-3 rounded-xl font-medium hover:opacity-90 transition"
-            >
-              Enviar solicitud de afiliación
-            </button>
-          </div>
-        </form>
+        <AfiliacionForm formatoUrl={formatoUrl} />
 
         {/* INFO LATERAL */}
         <aside className="border rounded-3xl p-8 h-fit">
@@ -146,16 +65,15 @@ export default function AfiliacionFormularioPage() {
             <li>Los datos se usan solo para registro y comunicación sindical.</li>
             <li>Verifique que el correo esté correcto para recibir confirmación.</li>
             <li>El DNI debe tener 8 dígitos y el celular 9 dígitos.</li>
+            <li>El formato firmado es obligatorio.</li>
           </ul>
 
           <div className="border rounded-2xl p-4 mt-6">
             <p className="text-sm font-semibold">Contacto</p>
             <p className="text-sm text-gray-700 mt-1">
-              sitcascgr@gmail.com
+              afiliacion@sitcascgr.com
             </p>
-            <p className="text-sm text-gray-700">
-              L–V 09:00–18:00
-            </p>
+            <p className="text-sm text-gray-700">L–V 09:00–18:00</p>
           </div>
         </aside>
       </section>
