@@ -1,26 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --page-bg: #f6f2ec;
+  --surface: #ffffff;
+  --ink: #1c1b1a;
+  --muted: #5b5b5b;
+  --border-soft: #e6ded3;
+  --accent: #cf2d2d;
+  --accent-2: #0f766e;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--page-bg);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-body);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*,
+::before,
+::after {
+  border-color: var(--border-soft);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif;
+  background-color: var(--page-bg);
+  background-image:
+    radial-gradient(900px 500px at 10% -10%, #f9e7dc 0%, transparent 60%),
+    radial-gradient(900px 550px at 90% 0%, #e6f2f1 0%, transparent 55%),
+    linear-gradient(180deg, #f7f3ee 0%, #f3efe8 100%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+main {
+  position: relative;
 }
