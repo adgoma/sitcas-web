@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 const links = [
   { href: "/", label: "Inicio" },
   { href: "/comunicados", label: "Comunicados" },
+  { href: "/documentos", label: "Documentos" },
   { href: "/galeria", label: "Galería" },
   { href: "/principios", label: "Principios y Fines" },
   { href: "/conocenos", label: "Conócenos" },
@@ -26,8 +27,13 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded-xl border font-bold">
-            S
+          <div className="h-10 w-10 rounded-xl border bg-white overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-sitcas.ico"
+              alt="SITCAS"
+              className="h-full w-full object-contain p-1"
+            />
           </div>
           <div className="leading-tight">
             <div className="font-extrabold tracking-tight">SITCAS</div>

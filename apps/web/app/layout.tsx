@@ -12,7 +12,7 @@ function Footer() {
   return (
     <footer className="border-t bg-white">
       <div className="mx-auto max-w-6xl px-4 py-10">
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-4">
           <div>
             <div className="font-extrabold">SITCAS</div>
             <p className="mt-2 text-sm text-gray-600">
@@ -24,6 +24,8 @@ function Footer() {
             <div className="font-semibold">Secciones</div>
             <ul className="mt-3 space-y-2 text-gray-700">
               <li><Link className="hover:text-black" href="/comunicados">Comunicados</Link></li>
+              <li><Link className="hover:text-black" href="/documentos">Documentos</Link></li>
+              <li><Link className="hover:text-black" href="/galeria">Galer&iacute;a</Link></li>
               <li><Link className="hover:text-black" href="/principios">Principios y Fines</Link></li>
               <li><Link className="hover:text-black" href="/conocenos">Con&oacute;cenos</Link></li>
               <li><Link className="hover:text-black" href="/afiliacion">Afiliaci&oacute;n</Link></li>
@@ -33,8 +35,53 @@ function Footer() {
           <div className="text-sm">
             <div className="font-semibold">Contacto</div>
             <ul className="mt-3 space-y-2 text-gray-700">
-              <li>Email: <span className="font-medium">sitcascgr@gmail.com</span></li>
+              <li>
+                Email:&nbsp;
+                <a
+                  className="font-medium hover:text-black"
+                  href="mailto:sitcascgr@sitcascgr.com"
+                >
+                  sitcascgr@sitcascgr.com
+                </a>
+              </li>
+              <li>
+                WhatsApp:&nbsp;
+                <a
+                  className="font-medium hover:text-black"
+                  href="https://wa.me/51967645847"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  +51 967 645 847
+                </a>
+              </li>
               <li>Horario: L&ndash;V 9:00&ndash;18:00</li>
+            </ul>
+          </div>
+
+          <div className="text-sm">
+            <div className="font-semibold">Redes sociales</div>
+            <ul className="mt-3 space-y-2 text-gray-700">
+              <li>
+                <a
+                  className="hover:text-black"
+                  href="https://www.facebook.com/SITCASCGR/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Facebook
+                </a>
+              </li>
+              <li>
+                <a
+                  className="hover:text-black"
+                  href="https://www.tiktok.com/@sitcascgr"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  TikTok
+                </a>
+              </li>
             </ul>
           </div>
         </div>

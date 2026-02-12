@@ -158,6 +158,33 @@ export default async function Home() {
                 Afíliate
               </Link>
             </div>
+
+            <div className="mt-5 flex flex-wrap items-center gap-3 text-sm">
+              <a
+                href="https://www.facebook.com/SITCASCGR/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-full border px-4 py-2 hover:bg-gray-50"
+              >
+                Facebook
+              </a>
+              <a
+                href="https://www.tiktok.com/@sitcascgr"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-full border px-4 py-2 hover:bg-gray-50"
+              >
+                TikTok
+              </a>
+              <a
+                href="https://wa.me/51967645847"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-full border px-4 py-2 hover:bg-gray-50"
+              >
+                WhatsApp
+              </a>
+            </div>
           </div>
 
           <div className="rounded-2xl border bg-gray-50 p-6">
