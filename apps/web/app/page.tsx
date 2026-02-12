@@ -1,6 +1,7 @@
 // apps/web/app/page.tsx
 import Link from "next/link";
 import HomeSlider from "./components/HomeSlider";
+import GalleryGrid from "./components/GalleryGrid";
 import { wpFetch } from "@/lib/wp";
 
 type Slide = {
@@ -29,6 +30,36 @@ type Comunicado = {
   link?: string;
 };
 
+type WpGaleria = {
+  id: number;
+  title: { rendered: string };
+  content?: { rendered: string };
+  link?: string;
+  acf?: {
+    foto_galeria?: number;
+  };
+};
+
+type WpMedia = {
+  id: number;
+  media_type: string;
+  mime_type: string;
+  source_url: string;
+  alt_text?: string;
+  title?: { rendered?: string };
+  media_details?: {
+    sizes?: Record<string, { source_url: string }>;
+  };
+};
+
+type GalleryItem = {
+  id: number;
+  title: string;
+  description: string;
+  thumb: string;
+  full: string;
+};
+
 function stripHtml(html: string) {
   return (html || "").replace(/<[^>]*>/g, "").trim();
 }
@@ -42,29 +73,70 @@ function formatDate(iso: string) {
 }
 
 export default async function Home() {
-  // ✅ Slides (WP CPT: slider)
   const slides = await wpFetch<Slide[]>(
     "/slider?_embed&per_page=10&orderby=date&order=asc"
   );
 
-  // ✅ Últimos comunicados (WP CPT: comunicados)
   const comunicados = await wpFetch<Comunicado[]>(
     "/comunicados?per_page=3&orderby=date&order=desc"
   );
 
+  const galerias = await wpFetch<WpGaleria[]>(
+    "/galeria?per_page=12&orderby=date&order=desc"
+  );
+
   const latest = Array.isArray(comunicados) ? comunicados : [];
+  const galeriaItems = Array.isArray(galerias) ? galerias : [];
+
+  const mediaIds = Array.from(
+    new Set(
+      galeriaItems
+        .map((g) => g.acf?.foto_galeria)
+        .filter((id): id is number => typeof id === "number" && id > 0)
+    )
+  );
+
+  let mediaById = new Map<number, WpMedia>();
+  if (mediaIds.length > 0) {
+    const media = await wpFetch<WpMedia[]>(
+      `/media?include=${mediaIds.join(",")}&per_page=${mediaIds.length}`
+    );
+    if (Array.isArray(media)) {
+      mediaById = new Map(media.map((m) => [m.id, m]));
+    }
+  }
+
+  const gallery: GalleryItem[] = galeriaItems
+    .map((g) => {
+      const mediaId = g.acf?.foto_galeria;
+      const media = mediaId ? mediaById.get(mediaId) : undefined;
+      if (!media || media.media_type !== "image") return null;
+
+      const thumb =
+        media.media_details?.sizes?.medium_large?.source_url ||
+        media.media_details?.sizes?.large?.source_url ||
+        media.source_url;
+
+      return {
+        id: g.id,
+        title: stripHtml(g.title?.rendered || "Foto"),
+        description: stripHtml(g.content?.rendered || ""),
+        thumb,
+        full: media.source_url,
+      };
+    })
+    .filter(Boolean)
+    .slice(0, 3) as GalleryItem[];
 
   return (
     <div className="space-y-12">
-      {/* SLIDER (WP) */}
       <HomeSlider slides={slides} />
 
-      {/* HERO + ÚLTIMOS */}
       <section className="rounded-3xl border bg-white p-10 shadow-sm">
         <div className="grid gap-8 md:grid-cols-2 md:items-center">
           <div>
             <h1 className="text-4xl font-extrabold tracking-tight">
-              SITCAS — Sindicato de Trabajadores CAS
+              SITCAS - Sindicato de Trabajadores CAS
             </h1>
             <p className="mt-4 text-gray-700">
               Comunicados oficiales, gestiones del sindicato, información para
@@ -124,7 +196,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* BLOQUES */}
       <section className="grid gap-6 md:grid-cols-3">
         <div className="rounded-2xl border bg-white p-6">
           <div className="text-sm font-semibold">Transparencia</div>
@@ -147,6 +218,38 @@ export default async function Home() {
             Proceso claro y centralizado para nuevos afiliados.
           </p>
         </div>
+      </section>
+
+      <section className="rounded-3xl border bg-white p-6 md:p-10 shadow-sm">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="text-sm text-gray-500">Galería</p>
+            <h2 className="mt-1 text-2xl md:text-3xl font-extrabold tracking-tight">
+              Nuestro sindicato en acción
+            </h2>
+            <p className="mt-2 text-gray-600 max-w-2xl">
+              Momentos de asambleas, capacitaciones y actividades institucionales.
+            </p>
+          </div>
+        </div>
+
+        {gallery.length === 0 ? (
+          <div className="mt-6 rounded-2xl border bg-gray-50 p-6 text-sm text-gray-600">
+            Aún no hay fotos publicadas.
+          </div>
+        ) : (
+          <>
+            <GalleryGrid items={gallery} />
+            <div className="mt-6">
+              <Link
+                href="/galeria"
+                className="inline-flex items-center justify-center rounded-xl border bg-white px-5 py-2 text-sm font-semibold hover:bg-gray-50"
+              >
+                Ver toda la galería
+              </Link>
+            </div>
+          </>
+        )}
       </section>
     </div>
   );
