@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: sindicato_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sitcasDB
+      POSTGRES_USER: sitcas
+      POSTGRES_PASSWORD: SitCas050226
+    ports:
+      - "5432:5432"
+    volumes:
+      - sitcas_pgdata:/var/lib/postgresql/data
+
+volumes:
+  sitcas_pgdata:

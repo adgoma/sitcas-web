@@ -1,0 +1,30 @@
+Base de datos postgrest
+sitcasDB
+sitcas
+SitCas050226
+
+
+
+b8tjtkbiy3@illubd.com
+UsuarioEditor12345
+
+m71sbs55p1@ruutukf.com
+AdminSindicato12345
+
+token creado curl -H "Authorization: Bearer a5e20f1bf66ea47d295e6bbd3901e79e348ceeaa481fb1f5b35842fadc68e4763ffb0f2a2cf26dc1ccfe8ea61fc1164074628c79239752888e8bef9fcc29b747515c0e244ec4fc7f93fae30a2a7c2aceec8f6a63c807eb51853bec86b569edb6bbd4abdb42230edf43b44c710ed580c22d81b15bd6e9cd200b17b7b6ae6c3aad" http://localhost:1337/api/comunicados
+
+
+Invoke-WebRequest `
+  -Uri http://localhost:1337/api/comunicados `
+  -Headers @{ Authorization = "Bearer a5e20f1bf66ea47d295e6bbd3901e79e348ceeaa481fb1f5b35842fadc68e4763ffb0f2a2cf26dc1ccfe8ea61fc1164074628c79239752888e8bef9fcc29b747515c0e244ec4fc7f93fae30a2a7c2aceec8f6a63c807eb51853bec86b569edb6bbd4abdb42230edf43b44c710ed580c22d81b15bd6e9cd200b17b7b6ae6c3aad" }
+
+
+
+$headers = @{
+  Authorization = "Bearer a5e20f1bf66ea47d295e6bbd3901e79e348ceeaa481fb1f5b35842fadc68e4763ffb0f2a2cf26dc1ccfe8ea61fc1164074628c79239752888e8bef9fcc29b747515c0e244ec4fc7f93fae30a2a7c2aceec8f6a63c807eb51853bec86b569edb6bbd4abdb42230edf43b44c710ed580c22d81b15bd6e9cd200b17b7b6ae6c3aad"
+}
+
+Invoke-RestMethod `
+  -Uri "http://localhost:1337/api/comunicados" `
+  -Headers $headers `
+  -Method GET
