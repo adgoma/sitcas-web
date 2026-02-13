@@ -18,8 +18,40 @@ const body = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "SITCAS / CGR - Sindicato",
+  metadataBase: new URL("https://www.sitcascgr.com"),
+  title: {
+    default: "SITCAS / CGR - Sindicato",
+    template: "%s | SITCAS / CGR",
+  },
   description: "Sitio institucional del sindicato SITCAS / CGR.",
+  alternates: {
+    canonical: "https://www.sitcascgr.com",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://www.sitcascgr.com",
+    siteName: "SITCAS / CGR",
+    title: "SITCAS / CGR - Sindicato",
+    description: "Sitio institucional del sindicato SITCAS / CGR.",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "SITCAS / CGR",
+      },
+      {
+        url: "https://sitcascgr.com/og.png",
+        width: 1200,
+        height: 630,
+        alt: "SITCAS / CGR",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og.png", "https://sitcascgr.com/og.png"],
+  },
 };
 
 function Footer() {
