@@ -31,6 +31,20 @@ function stripHtml(html: string) {
   return (html || "").replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
 }
 
+function decodeEntities(text: string) {
+  return text
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) =>
+      String.fromCharCode(parseInt(hex, 16))
+    )
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;|&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&nbsp;/g, " ");
+}
+
 function formatDate(iso: string) {
   const d = new Date(iso);
   const dd = String(d.getDate()).padStart(2, "0");
@@ -86,7 +100,7 @@ export default async function ComunicadoPage({
   const pdfUrl =
     pdfMedia?.mime_type === "application/pdf" ? pdfMedia.source_url : null;
 
-  const titulo = stripHtml(post.title?.rendered || "");
+  const titulo = decodeEntities(stripHtml(post.title?.rendered || ""));
   const publicado = formatDate(post.date);
 
   return (
@@ -113,14 +127,14 @@ export default async function ComunicadoPage({
       {/* BOTONES PDF */}
       {pdfUrl && (
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <a
-            href={pdfUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center justify-center rounded-xl bg-black px-5 py-3 text-sm font-semibold text-white hover:opacity-90"
-          >
-            Ver PDF →
-          </a>
+                <a
+                  href={pdfUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-white hover:opacity-90 btn-primary"
+                >
+                  Ver PDF →
+                </a>
           <a
             href={pdfUrl}
             download
@@ -180,12 +194,12 @@ export default async function ComunicadoPage({
         <p className="mt-2 text-sm text-gray-700">
           Fortalece tu representación sindical y mantente informado con comunicados oficiales.
         </p>
-        <Link
-          href="/afiliacion"
-          className="mt-4 inline-flex items-center justify-center rounded-xl bg-black px-5 py-3 text-sm font-semibold text-white hover:opacity-90"
-        >
-          Ir a afiliación →
-        </Link>
+            <Link
+              href="/afiliacion"
+              className="mt-4 inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-white hover:opacity-90 btn-primary"
+            >
+              Ir a afiliación →
+            </Link>
       </div>
     </section>
   </main>

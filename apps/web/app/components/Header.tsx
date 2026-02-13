@@ -31,12 +31,12 @@ export default function Header() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo-sitcas.ico"
-              alt="SITCAS"
+              alt="SITCAS / CGR"
               className="h-full w-full object-contain p-1"
             />
           </div>
           <div className="leading-tight">
-            <div className="font-extrabold tracking-tight">SITCAS</div>
+            <div className="font-extrabold tracking-tight">SITCAS / CGR</div>
             <div className="text-xs text-gray-500">Sindicato CAS</div>
           </div>
         </Link>
@@ -54,7 +54,7 @@ export default function Header() {
                 href={l.href}
                 className={`transition ${
                   active
-                    ? "text-black font-semibold border-b-2 border-black pb-1"
+                    ? "text-[var(--accent)] font-semibold border-b-2 border-[var(--accent)] pb-1"
                     : "text-gray-600 hover:text-black"
                 }`}
               >
@@ -67,7 +67,7 @@ export default function Header() {
         <div className="hidden md:flex">
           <Link
             href="/afiliacion/formulario"
-            className="rounded-xl bg-black px-4 py-2 text-sm font-semibold text-white hover:opacity-90"
+            className="rounded-xl px-4 py-2 text-sm font-semibold hover:opacity-90 btn-primary"
           >
             Afíliate
           </Link>
@@ -100,7 +100,7 @@ export default function Header() {
                     href={l.href}
                     className={`rounded-lg px-3 py-2 transition ${
                       active
-                        ? "bg-gray-100 text-black font-semibold"
+                        ? "bg-[var(--accent-warm)] text-[var(--accent)] font-semibold"
                         : "text-gray-700 hover:bg-gray-50"
                     }`}
                   >
@@ -113,7 +113,7 @@ export default function Header() {
             <div className="mt-4">
               <Link
                 href="/afiliacion/formulario"
-                className="inline-flex w-full items-center justify-center rounded-xl bg-black px-4 py-2 text-sm font-semibold text-white hover:opacity-90"
+                className="inline-flex w-full items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold hover:opacity-90 btn-primary"
               >
                 Afíliate
               </Link>

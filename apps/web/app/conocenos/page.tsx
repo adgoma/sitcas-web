@@ -1,4 +1,3 @@
-// apps/web/app/conocenos/page.tsx
 import Link from "next/link";
 
 type WPText = { rendered: string };
@@ -66,21 +65,69 @@ export default async function ConocenosPage() {
         <div className="mt-6 flex gap-3">
           <Link
             href="/comunicados"
-            className="inline-flex items-center justify-center rounded-full border px-5 py-2 text-sm font-medium hover:bg-gray-50"
+            className="inline-flex items-center justify-center rounded-full border px-5 py-2 text-sm font-medium hover:bg-gray-50 btn-secondary"
           >
             Ver comunicados
           </Link>
           <Link
             href="/afiliacion"
-            className="inline-flex items-center justify-center rounded-full bg-black px-5 py-2 text-sm font-medium text-white hover:opacity-90"
+            className="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-medium hover:opacity-90 btn-primary"
           >
             Afíliate
           </Link>
         </div>
       </section>
 
+      {/* Ficha institucional */}
+      <section className="grid gap-6 lg:grid-cols-[1fr_2fr]">
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="inline-flex items-center gap-2 rounded-full bg-red-600 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+            Ficha institucional
+          </div>
+          <ul className="mt-4 space-y-3 text-sm text-gray-700">
+            <li>
+              <span className="font-semibold text-gray-900">Fundado:</span> 21 de
+              septiembre de 2024
+            </li>
+            <li>
+              <span className="font-semibold text-gray-900">
+                Inscrito en el MTPE:
+              </span>{" "}
+              10 de diciembre de 2024
+            </li>
+            <li>
+              <span className="font-semibold text-gray-900">ROSSP:</span>{" "}
+              158052-2024-MTPE
+            </li>
+          </ul>
+        </div>
+
+        <div className="rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-white to-red-50 p-6">
+          <h2 className="text-xl font-semibold">Identidad y propósito</h2>
+          <p className="mt-3 text-gray-700">
+            Comprometidos con la defensa laboral y el fortalecimiento del régimen
+            CAS en la Contraloría General de la República del Perú.
+          </p>
+          <p className="mt-3 text-gray-700">
+            El Sindicato SITCAS / CGR representa a los trabajadores bajo el
+            Régimen de Contratación Administrativa de Servicios (CAS) dentro de
+            la Contraloría General de la República. Su propósito es velar por los
+            derechos laborales, la estabilidad, el respeto a la dignidad del
+            trabajador y el cumplimiento de la normativa vigente.
+          </p>
+          <div className="mt-4 rounded-2xl border border-red-100 bg-red-50 p-4 text-sm text-gray-700">
+            Nuestra organización promueve la unidad sindical, el ejercicio de la
+            democracia participativa y la defensa firme de los intereses
+            colectivos, sin subordinación política ni partidaria. Nos
+            constituimos como una voz activa frente a las necesidades del
+            personal CAS, buscando condiciones laborales justas, estabilidad y
+            reconocimiento pleno de sus derechos.
+          </div>
+        </div>
+      </section>
+
       {/* Grid */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {miembros.map((m) => {
           const nombre = stripHtml(m.title?.rendered ?? "Sin nombre");
           const cargo = m.acf?.cargo?.trim() || "—";
@@ -110,11 +157,10 @@ export default async function ConocenosPage() {
                   <img
                     src={foto}
                     alt={nombre}
-                    //fill="true"
-                    className="object-cover object-top"
+                    className="object-cover object-top h-full w-full"
                   />
                 ) : (
-                  <div className="h-56 w-full flex items-button justify-button text-sm text-gray-500">
+                  <div className="h-56 w-full flex items-center justify-center text-sm text-gray-500">
                     Sin foto
                   </div>
                 )}
@@ -136,7 +182,7 @@ export default async function ConocenosPage() {
                 <p className="mt-2 text-sm text-gray-400">—</p>
               )}
 
-              {/* Descripción corta (opcional, se ve pro) */}
+              {/* Descripción corta */}
               {descripcion ? (
                 <p className="mt-4 text-sm text-gray-700 leading-relaxed text-justify">
                   {descripcion}
@@ -166,12 +212,13 @@ export default async function ConocenosPage() {
       </section>
 
       {/* Bloque institucional */}
-      <section className="mt-10 rounded-2xl border p-6 bg-gray-50">
+      <section className="mt-10 rounded-2xl border border-slate-200 p-6 bg-slate-50">
         <h3 className="text-lg font-semibold">Nuestro compromiso</h3>
         <p className="mt-2 text-gray-700 leading-relaxed">
           Promovemos una gestión responsable, enfocada en la defensa de derechos
           laborales, el diálogo institucional y el fortalecimiento organizativo,
-          manteniendo canales de comunicación claros y oportunos con los afiliados.
+          manteniendo canales de comunicación claros y oportunos con los
+          afiliados.
         </p>
       </section>
     </main>

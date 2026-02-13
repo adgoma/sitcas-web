@@ -17,6 +17,9 @@ export default function GalleryGrid({ items }: { items: GalleryItem[] }) {
 
   return (
     <>
+      <p className="mt-3 text-xs text-gray-600">
+        Haz clic en una foto para ver más información.
+      </p>
       <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4">
         {items.map((item) => (
           <button

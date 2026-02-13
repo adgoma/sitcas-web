@@ -73,7 +73,7 @@ export default async function ComunicadosPage() {
         <div className="mt-6 flex gap-3">
           <Link
             href="/afiliacion"
-            className="inline-flex items-center justify-center rounded-full bg-black px-5 py-2 text-sm font-medium text-white hover:opacity-90"
+            className="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-medium hover:opacity-90 btn-primary"
           >
             Afíliate
           </Link>

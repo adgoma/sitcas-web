@@ -28,17 +28,9 @@ export async function POST(req: Request) {
     const fechaIngreso = get("fecha_ingreso");
     const regimen = get("regimen");
     const comentario = get("comentario");
+    const formatoUrl = get("formato_url");
 
-    const archivo = formData.get("formato_firmado");
-    if (!(archivo instanceof File)) {
-      return NextResponse.redirect(
-        new URL("/afiliacion/formulario?error=1", req.url),
-        303
-      );
-    }
-
-    const maxSizeMb = 10;
-    if (archivo.size > maxSizeMb * 1024 * 1024) {
+    if (!formatoUrl) {
       return NextResponse.redirect(
         new URL("/afiliacion/formulario?error=1", req.url),
         303
@@ -58,12 +50,6 @@ export async function POST(req: Request) {
       auth: { user, pass },
     });
 
-    const attachment = {
-      filename: archivo.name || "formato-afiliacion",
-      content: Buffer.from(await archivo.arrayBuffer()),
-      contentType: archivo.type || "application/octet-stream",
-    };
-
     const subject = `Nueva solicitud de afiliación - ${nombres} ${apellidos}`;
 
     const text = [
@@ -78,6 +64,7 @@ export async function POST(req: Request) {
       `Fecha ingreso a la Contraloría: ${fechaIngreso}`,
       `Régimen laboral: ${regimen}`,
       `Comentario: ${comentario || "-"}`,
+      `Formato firmado: ${formatoUrl}`,
     ].join("\n");
 
     const html = `
@@ -94,6 +81,7 @@ export async function POST(req: Request) {
         <li><strong>Fecha ingreso a la Contraloría:</strong> ${fechaIngreso}</li>
         <li><strong>Régimen laboral:</strong> ${regimen}</li>
         <li><strong>Comentario:</strong> ${comentario || "-"}</li>
+        <li><strong>Formato firmado:</strong> <a href="${formatoUrl}">Descargar archivo</a></li>
       </ul>
     `;
 
@@ -104,7 +92,6 @@ export async function POST(req: Request) {
       subject,
       text,
       html,
-      attachments: [attachment],
     });
 
     if (correo) {

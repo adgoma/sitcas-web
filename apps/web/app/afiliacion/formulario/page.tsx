@@ -61,22 +61,30 @@ export default async function AfiliacionFormularioPage() {
         <AfiliacionForm formatoUrl={formatoUrl} />
 
         {/* INFO LATERAL */}
-        <aside className="border rounded-3xl p-8 h-fit">
-          <h3 className="font-semibold text-lg">Importante</h3>
+        <aside className="rounded-3xl border border-red-100 bg-red-50/60 p-8 h-fit shadow-lg shadow-red-500/10">
+          <div className="inline-flex items-center gap-2 rounded-full bg-red-600 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+            Importante
+          </div>
 
-          <ul className="mt-4 text-gray-700 text-sm list-disc pl-5 space-y-2">
+          <ul className="mt-4 text-gray-800 text-sm list-disc pl-5 space-y-2">
             <li>Los datos se usan solo para registro y comunicación sindical.</li>
             <li>Verifique que el correo esté correcto para recibir confirmación.</li>
             <li>El DNI debe tener 8 dígitos y el celular 9 dígitos.</li>
             <li>El formato firmado es obligatorio.</li>
           </ul>
 
-          <div className="border rounded-2xl p-4 mt-6">
-            <p className="text-sm font-semibold">Contacto</p>
+          <div className="border border-red-100 rounded-2xl bg-white p-4 mt-6">
+            <p className="text-sm font-semibold text-gray-900">Contacto</p>
             <p className="text-sm text-gray-700 mt-1">
               afiliacion@sitcascgr.com
             </p>
-            <p className="text-sm text-gray-700">L–V 09:00–18:00</p>
+            <a
+              href="https://wa.me/51967645847"
+              className="mt-2 inline-flex text-sm font-semibold text-red-700 hover:opacity-80"
+            >
+              WhatsApp: +51 967 645 847
+            </a>
+            <p className="text-sm text-gray-700 mt-1">L–V 09:00–18:00</p>
           </div>
         </aside>
       </section>

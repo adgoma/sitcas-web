@@ -2,6 +2,7 @@
 import Link from "next/link";
 import HomeSlider from "./components/HomeSlider";
 import GalleryGrid from "./components/GalleryGrid";
+import LatestComunicados from "./components/LatestComunicados";
 import { wpFetch } from "@/lib/wp";
 
 type Slide = {
@@ -64,21 +65,13 @@ function stripHtml(html: string) {
   return (html || "").replace(/<[^>]*>/g, "").trim();
 }
 
-function formatDate(iso: string) {
-  const d = new Date(iso);
-  const dd = String(d.getDate()).padStart(2, "0");
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const yyyy = d.getFullYear();
-  return `${dd}/${mm}/${yyyy}`;
-}
-
 export default async function Home() {
   const slides = await wpFetch<Slide[]>(
     "/slider?_embed&per_page=10&orderby=date&order=asc"
   );
 
   const comunicados = await wpFetch<Comunicado[]>(
-    "/comunicados?per_page=3&orderby=date&order=desc"
+    "/comunicados?per_page=6&orderby=date&order=desc"
   );
 
   const galerias = await wpFetch<WpGaleria[]>(
@@ -136,7 +129,8 @@ export default async function Home() {
         <div className="grid gap-8 md:grid-cols-2 md:items-center">
           <div>
             <h1 className="text-4xl font-extrabold tracking-tight">
-              SITCAS - Sindicato de Trabajadores CAS
+              Sindicato de Trabajadores CAS de la Contraloría General de la
+              República del Perú
             </h1>
             <p className="mt-4 text-gray-700">
               Comunicados oficiales, gestiones del sindicato, información para
@@ -146,44 +140,17 @@ export default async function Home() {
             <div className="mt-6 flex gap-3">
               <Link
                 href="/comunicados"
-                className="rounded-xl bg-black px-5 py-3 text-sm font-semibold text-white hover:opacity-90"
+                className="rounded-xl px-5 py-3 text-sm font-semibold hover:opacity-90 btn-primary"
               >
                 Ver comunicados
               </Link>
 
               <Link
                 href="/afiliacion"
-                className="rounded-xl border bg-white px-5 py-3 text-sm font-semibold hover:bg-gray-50"
+                className="rounded-xl border bg-white px-5 py-3 text-sm font-semibold hover:bg-gray-50 btn-secondary"
               >
                 Afíliate
               </Link>
-            </div>
-
-            <div className="mt-5 flex flex-wrap items-center gap-3 text-sm">
-              <a
-                href="https://www.facebook.com/SITCASCGR/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full border px-4 py-2 hover:bg-gray-50"
-              >
-                Facebook
-              </a>
-              <a
-                href="https://www.tiktok.com/@sitcascgr"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full border px-4 py-2 hover:bg-gray-50"
-              >
-                TikTok
-              </a>
-              <a
-                href="https://wa.me/51967645847"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full border px-4 py-2 hover:bg-gray-50"
-              >
-                WhatsApp
-              </a>
             </div>
           </div>
 
@@ -192,33 +159,49 @@ export default async function Home() {
               Últimos comunicados
             </div>
 
-            <div className="mt-4 space-y-3">
-              {latest.length === 0 && (
-                <p className="text-sm text-gray-500">
-                  Aún no hay comunicados publicados.
-                </p>
-              )}
-
-              {latest.map((c) => (
-                <Link
-                  key={c.id}
-                  href={`/comunicados/${c.slug}`}
-                  className="block rounded-xl border bg-white p-4 hover:shadow-sm"
-                >
-                  <div className="font-semibold">
-                    {stripHtml(c.title?.rendered)}
-                  </div>
-
-                  <div className="mt-1 text-xs text-gray-500">
-                    {formatDate(c.date)}
-                  </div>
-
-                  <div className="mt-2 text-sm text-gray-700 line-clamp-2">
-                    {stripHtml(c.excerpt?.rendered || "")}
-                  </div>
-                </Link>
-              ))}
+            <div className="mt-4">
+              <LatestComunicados items={latest} />
             </div>
+          </div>
+        </div>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-[1.3fr_1fr]">
+          <div className="rounded-2xl border border-red-100 bg-red-50/60 p-6">
+            <div className="text-xs font-semibold uppercase tracking-wide text-red-700">
+              Identidad institucional
+            </div>
+            <p className="mt-2 text-sm text-gray-700">
+              Comprometidos con la defensa laboral y el fortalecimiento del
+              régimen CAS en la Contraloría General de la República del Perú.
+            </p>
+            <Link
+              href="/conocenos"
+              className="mt-3 inline-flex items-center justify-center rounded-xl border bg-white px-4 py-2 text-sm font-semibold hover:bg-gray-50 btn-secondary"
+            >
+              Conócenos
+            </Link>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-white p-6">
+            <div className="text-sm font-semibold text-gray-900">
+              Ficha institucional
+            </div>
+            <ul className="mt-3 space-y-2 text-sm text-gray-700">
+              <li>
+                <span className="font-semibold text-gray-900">Fundado:</span> 21
+                de septiembre de 2024
+              </li>
+              <li>
+                <span className="font-semibold text-gray-900">
+                  Inscrito en el MTPE:
+                </span>{" "}
+                10 de diciembre de 2024
+              </li>
+              <li>
+                <span className="font-semibold text-gray-900">ROSSP:</span>{" "}
+                158052-2024-MTPE
+              </li>
+            </ul>
           </div>
         </div>
       </section>
@@ -270,7 +253,7 @@ export default async function Home() {
             <div className="mt-6">
               <Link
                 href="/galeria"
-                className="inline-flex items-center justify-center rounded-xl border bg-white px-5 py-2 text-sm font-semibold hover:bg-gray-50"
+                className="inline-flex items-center justify-center rounded-xl border bg-white px-5 py-2 text-sm font-semibold hover:bg-gray-50 btn-secondary"
               >
                 Ver toda la galería
               </Link>
