@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { wpFetch } from "@/lib/wp";
 
 type WPText = { rendered: string };
 
@@ -37,16 +38,15 @@ function recortarTexto(texto: string, max = 170) {
   return texto.slice(0, max).trimEnd() + "…";
 }
 
-// Tu WP REST funciona con index.php, así que mantenemos esa ruta
-const WP_BASE = "https://sitcascgr.com/cms/index.php/wp-json/wp/v2";
-
 async function getDirectiva(): Promise<DirectivaItem[]> {
-  const url = `${WP_BASE}/directiva?_embed&per_page=100&orderby=date&order=asc`;
-
-  const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error("No se pudo obtener la directiva desde WordPress");
-
-  return res.json();
+  try {
+    return await wpFetch<DirectivaItem[]>(
+      "/directiva?_embed&per_page=100&orderby=date&order=asc"
+    );
+  } catch (error) {
+    console.error("No se pudo obtener la directiva desde WordPress", error);
+    return [];
+  }
 }
 
 export default async function ConocenosPage() {
@@ -128,7 +128,13 @@ export default async function ConocenosPage() {
 
       {/* Grid */}
       <section className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {miembros.map((m) => {
+        {miembros.length === 0 ? (
+          <div className="col-span-full rounded-2xl border bg-gray-50 p-6 text-sm text-gray-600">
+            No se pudo cargar la directiva en este momento. Intenta nuevamente
+            más tarde.
+          </div>
+        ) : (
+          miembros.map((m) => {
           const nombre = stripHtml(m.title?.rendered ?? "Sin nombre");
           const cargo = m.acf?.cargo?.trim() || "—";
           const correo = m.acf?.correo?.trim();
@@ -145,11 +151,11 @@ export default async function ConocenosPage() {
             fm?.source_url ||
             "";
 
-          return (
-            <article
-              key={m.id}
-              className="rounded-2xl border bg-white p-6 shadow-sm hover:shadow transition"
-            >
+            return (
+              <article
+                key={m.id}
+                className="rounded-2xl border bg-white p-6 shadow-sm hover:shadow transition"
+              >
               {/* Foto */}
               <div className="relative w-full aspect-[5/5] overflow-hidden rounded-2xl">
                 {foto ? (
@@ -206,9 +212,10 @@ export default async function ConocenosPage() {
                   </span>
                 )}
               </div>
-            </article>
-          );
-        })}
+              </article>
+            );
+          })
+        )}
       </section>
 
       {/* Bloque institucional */}
