@@ -21,14 +21,14 @@ export default function AfiliacionPage() {
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
             href="/afiliacion/formulario"
-            className="px-5 py-3 rounded-xl bg-black text-white hover:opacity-90"
+            className="px-5 py-3 rounded-xl text-white hover:opacity-90 btn-primary"
           >
             Ir al formulario
           </Link>
 
           <Link
             href="/comunicados"
-            className="px-5 py-3 rounded-xl border hover:shadow"
+            className="px-5 py-3 rounded-xl border hover:shadow btn-secondary"
           >
             Ver comunicados
           </Link>
@@ -107,13 +107,13 @@ export default function AfiliacionPage() {
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
             href="/afiliacion/formulario"
-            className="inline-flex px-5 py-3 rounded-xl bg-black text-white hover:opacity-90"
+            className="inline-flex px-5 py-3 rounded-xl text-white hover:opacity-90 btn-primary"
           >
             Ir al formulario →
           </Link>
           <Link
             href="/contacto"
-            className="inline-flex px-5 py-3 rounded-xl border hover:bg-gray-50"
+            className="inline-flex px-5 py-3 rounded-xl border hover:bg-gray-50 btn-secondary"
           >
             Consultas y contacto
           </Link>
@@ -130,13 +130,13 @@ export default function AfiliacionPage() {
         <div className="mt-4 flex flex-wrap gap-3">
           <Link
             href="/contacto"
-            className="inline-flex px-5 py-3 rounded-xl border hover:bg-gray-50"
+            className="inline-flex px-5 py-3 rounded-xl border hover:bg-gray-50 btn-secondary"
           >
             Ir a contacto
           </Link>
           <Link
             href="/afiliacion/formulario"
-            className="inline-flex px-5 py-3 rounded-xl bg-black text-white hover:opacity-90"
+            className="inline-flex px-5 py-3 rounded-xl text-white hover:opacity-90 btn-primary"
           >
             Solicitar afiliación
           </Link>

@@ -106,7 +106,7 @@ export default async function MiembroPage({
               href={linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-xl bg-black px-5 py-3 text-sm font-semibold text-white hover:opacity-90"
+              className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-white hover:opacity-90 btn-primary"
             >
               Ver perfil profesional
             </a>

@@ -58,10 +58,12 @@ export default async function AfiliacionFormularioPage() {
 
       {/* Formulario + Info */}
       <section className="grid md:grid-cols-2 gap-6">
-        <AfiliacionForm formatoUrl={formatoUrl} />
+        <div className="order-2 md:order-1">
+          <AfiliacionForm formatoUrl={formatoUrl} />
+        </div>
 
         {/* INFO LATERAL */}
-        <aside className="rounded-3xl border border-red-100 bg-red-50/60 p-8 h-fit shadow-lg shadow-red-500/10">
+        <aside className="order-1 md:order-2 rounded-3xl border border-red-100 bg-red-50/60 p-8 h-fit shadow-lg shadow-red-500/10">
           <div className="inline-flex items-center gap-2 rounded-full bg-red-600 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
             Importante
           </div>
