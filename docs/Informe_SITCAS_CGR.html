@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Informe Final - SITCAS / CGR</title>
+    <style>
+      @page { size: A4; margin: 22mm 18mm; }
+      :root {
+        --accent: #c2171f;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --border: #e5e7eb;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        color: var(--text);
+        line-height: 1.5;
+        font-size: 12.5px;
+      }
+      h1, h2, h3 { margin: 0 0 8px; }
+      h1 { font-size: 26px; }
+      h2 { font-size: 18px; color: var(--accent); }
+      h3 { font-size: 14.5px; }
+      p { margin: 0 0 10px; }
+      .cover {
+        border: 1px solid var(--border);
+        padding: 22px;
+        border-radius: 14px;
+        background: #fff;
+      }
+      .badge {
+        display: inline-block;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #fff;
+        background: var(--accent);
+        padding: 4px 8px;
+        border-radius: 999px;
+        margin-bottom: 10px;
+      }
+      .section {
+        margin-top: 18px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px;
+        background: #fafafa;
+      }
+      ul { margin: 6px 0 10px 18px; }
+      li { margin-bottom: 5px; }
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 6px;
+      }
+      .table th, .table td {
+        border: 1px solid var(--border);
+        padding: 6px 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .muted { color: var(--muted); }
+      .highlight {
+        background: #fff1f2;
+        border: 1px solid #fecdd3;
+        padding: 10px;
+        border-radius: 10px;
+      }
+      .footer {
+        margin-top: 16px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <span class="badge">Informe Final</span>
+      <h1>SITCAS / CGR</h1>
+      <p class="muted">Sindicato de Trabajadores CAS de la Contralor&iacute;a General de la Rep&uacute;blica del Per&uacute;</p>
+      <p><strong>Fecha:</strong> 13 de febrero de 2026</p>
+      <p><strong>Proyecto:</strong> Plataforma institucional + CMS WordPress + Formularios</p>
+      <p><strong>De:</strong> Adri&aacute;n G&oacute;mez M&aacute;rquez</p>
+      <p><strong>Dirigido a:</strong> SINDICATO DE TRABAJADORES CAS DE LA CONTRALOR&Iacute;A GENERAL DE LA REP&Uacute;BLICA DEL PER&Uacute; (SITCAS/CGR)</p>
+    </div>
+
+    <div class="section">
+      <h2>1) Resumen Ejecutivo</h2>
+      <p>
+        Se implement&oacute; una plataforma institucional moderna para el SITCAS / CGR,
+        con un frontend en Next.js y gesti&oacute;n de contenidos desde WordPress.
+        El sistema permite publicar comunicados, documentos oficiales, galer&iacute;as
+        e informaci&oacute;n institucional; adem&aacute;s de un formulario de afiliaci&oacute;n con
+        validaciones, carga de archivos y env&iacute;o autom&aacute;tico de correos.
+      </p>
+      <p>
+        La soluci&oacute;n integra una arquitectura moderna, escalable y segura, con
+        enfoque en la transparencia, la comunicaci&oacute;n oportuna y la facilidad de
+        administraci&oacute;n de contenidos por parte del equipo sindical.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>2) Objetivos del Proyecto</h2>
+      <ul>
+        <li>Modernizar la presencia institucional del sindicato con identidad visual coherente.</li>
+        <li>Centralizar la publicaci&oacute;n de comunicados, documentos y galer&iacute;as.</li>
+        <li>Facilitar la afiliaci&oacute;n mediante formularios con validaci&oacute;n y confirmaci&oacute;n.</li>
+        <li>Asegurar la comunicaci&oacute;n efectiva con afiliados y p&uacute;blico.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>3) Alcance y M&oacute;dulos Implementados</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Inicio</h3>
+          <ul>
+            <li>Slider institucional.</li>
+            <li>&Uacute;ltimos comunicados (carrusel).</li>
+            <li>Bloques institucionales (identidad y ficha).</li>
+            <li>Galer&iacute;a destacada (3 fotos).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Comunicados</h3>
+          <ul>
+            <li>Listado con fecha, imagen y resumen.</li>
+            <li>Detalle con PDF (ver/descargar).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Galer&iacute;a</h3>
+          <ul>
+            <li>Grid de fotos.</li>
+            <li>Modal con t&iacute;tulo y descripci&oacute;n.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Documentos</h3>
+          <ul>
+            <li>Estatutos, planes y otros documentos.</li>
+            <li>Orden por prioridad y fecha.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Con&oacute;cenos</h3>
+          <ul>
+            <li>Ficha institucional.</li>
+            <li>Directiva con foto, cargo y correo.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Principios y Fines</h3>
+          <ul>
+            <li>Dise&ntilde;o din&aacute;mico con iconograf&iacute;a.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Afiliaci&oacute;n</h3>
+          <ul>
+            <li>Proceso explicado por pasos.</li>
+            <li>Beneficios y requisitos.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Formulario</h3>
+          <ul>
+            <li>Validaciones obligatorias.</li>
+            <li>Confirmaci&oacute;n previa al env&iacute;o.</li>
+            <li>Carga de archivo firmado.</li>
+            <li>Correo autom&aacute;tico de confirmaci&oacute;n.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>4) Arquitectura y Tecnolog&iacute;a</h2>
+      <table class="table">
+        <tr>
+          <th>Componente</th>
+          <th>Descripci&oacute;n</th>
+        </tr>
+        <tr>
+          <td>Frontend</td>
+          <td>Next.js 16 (App Router), UI responsive y estilos institucionales.</td>
+        </tr>
+        <tr>
+          <td>CMS</td>
+          <td>WordPress REST API con CPT y ACF para contenidos.</td>
+        </tr>
+        <tr>
+          <td>Correo</td>
+          <td>SMTP (Nodemailer) con confirmaci&oacute;n autom&aacute;tica.</td>
+        </tr>
+        <tr>
+          <td>Archivos</td>
+          <td>Vercel Blob para almacenamiento de formatos firmados.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>5) Integraciones WordPress</h2>
+      <ul>
+        <li><strong>comunicados</strong>: listado y detalle con PDFs.</li>
+        <li><strong>galeria</strong>: fotos con ACF <em>foto_galeria</em>.</li>
+        <li><strong>documentos_sitcas</strong>: documento, categor&iacute;a, fecha.</li>
+        <li><strong>directiva</strong>: cargo, correo, linkedin.</li>
+        <li><strong>formato_afiliacion</strong>: archivo editable.</li>
+        <li><strong>slider</strong>: contenido para portada.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>6) Flujos de Trabajo y Operaci&oacute;n</h2>
+      <ul>
+        <li><strong>Publicaci&oacute;n de contenidos:</strong> El equipo registra comunicados, galer&iacute;as y documentos en WordPress.</li>
+        <li><strong>Consumo en el frontend:</strong> La web consulta el REST API y renderiza la informaci&oacute;n en tiempo real.</li>
+        <li><strong>Afiliaci&oacute;n:</strong> El usuario descarga el formato, lo completa, lo sube y env&iacute;a la solicitud.</li>
+        <li><strong>Confirmaci&oacute;n:</strong> Se env&iacute;a correo al sindicato y correo de confirmaci&oacute;n al solicitante.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>7) Seguridad y Cumplimiento</h2>
+      <div class="highlight">
+        Cumplimiento con la Ley 29733 de Protecci&oacute;n de Datos Personales.
+        La informaci&oacute;n recibida se usa exclusivamente para fines de afiliaci&oacute;n
+        y comunicaci&oacute;n institucional.
+      </div>
+      <ul>
+        <li>Validaciones de formularios y confirmaciones de env&iacute;o.</li>
+        <li>Variables sensibles gestionadas en entorno (no en c&oacute;digo).</li>
+        <li>Control de tama&ntilde;o de archivos adjuntos.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>8) Rendimiento y Buenas Pr&aacute;cticas</h2>
+      <ul>
+        <li>Uso de miniaturas para galer&iacute;as.</li>
+        <li>Carga diferida de im&aacute;genes (lazy loading).</li>
+        <li>Recomendaci&oacute;n de subir archivos comprimidos.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>9) Entregables</h2>
+      <ul>
+        <li>Repositorio con c&oacute;digo fuente actualizado.</li>
+        <li>Configuraci&oacute;n de Vercel + variables de entorno.</li>
+        <li>Manual breve de uso para WordPress.</li>
+        <li>Informe t&eacute;cnico final.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>10) Propuesta Econ&oacute;mica</h2>
+      <p><strong>Inversi&oacute;n total:</strong> <strong>S/ 1,000.00</strong> (pago &uacute;nico).</p>
+      <p class="muted">
+        Incluye desarrollo, integraciones, ajustes finales y soporte correctivo
+        inicial.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>11) Recomendaciones Finales</h2>
+      <ul>
+        <li>Mantener WordPress actualizado y respaldos regulares.</li>
+        <li>Controlar el peso de im&aacute;genes y PDFs.</li>
+        <li>Usar subdominio <em>cms</em> si el frontend est&aacute; en Vercel.</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      Informe elaborado para SITCAS / CGR. Contacto: afiliacion@sitcascgr.com
+    </div>
+  </body>
+</html>

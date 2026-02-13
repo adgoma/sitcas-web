@@ -158,10 +158,21 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl border bg-gray-50 p-6">
-            <div className="text-sm font-semibold text-gray-700">
-              Últimos comunicados
+          <div className="rounded-2xl border border-red-100 bg-gradient-to-br from-white via-white to-red-50 p-7 shadow-sm">
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-xs font-semibold uppercase tracking-wide text-red-700">
+                Últimos comunicados
+              </div>
+              <Link
+                href="/comunicados"
+                className="text-xs font-semibold text-red-700 hover:opacity-80"
+              >
+                Ver todos →
+              </Link>
             </div>
+            <p className="mt-2 text-sm text-gray-600">
+              Deslizan automáticamente para resaltar lo más reciente.
+            </p>
 
             <div className="mt-4">
               <LatestComunicados items={latest} />
