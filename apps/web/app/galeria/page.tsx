@@ -1,7 +1,7 @@
 // apps/web/app/galeria/page.tsx
 import Link from "next/link";
 import GalleryGrid from "../components/GalleryGrid";
-import { wpFetch } from "@/lib/wp";
+import { wpFetchSafe } from "@/lib/wp";
 
 type WpGaleria = {
   id: number;
@@ -38,8 +38,9 @@ function stripHtml(html: string) {
 }
 
 export default async function GaleriaPage() {
-  const galerias = await wpFetch<WpGaleria[]>(
-    "/galeria?per_page=100&orderby=date&order=desc"
+  const galerias = await wpFetchSafe<WpGaleria[]>(
+    "/galeria?per_page=100&orderby=date&order=desc",
+    []
   );
 
   const galeriaItems = Array.isArray(galerias) ? galerias : [];
@@ -54,8 +55,9 @@ export default async function GaleriaPage() {
 
   let mediaById = new Map<number, WpMedia>();
   if (mediaIds.length > 0) {
-    const media = await wpFetch<WpMedia[]>(
-      `/media?include=${mediaIds.join(",")}&per_page=${mediaIds.length}`
+    const media = await wpFetchSafe<WpMedia[]>(
+      `/media?include=${mediaIds.join(",")}&per_page=${mediaIds.length}`,
+      []
     );
     if (Array.isArray(media)) {
       mediaById = new Map(media.map((m) => [m.id, m]));

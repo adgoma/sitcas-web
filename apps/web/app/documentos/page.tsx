@@ -1,4 +1,4 @@
-import { wpFetch } from "@/lib/wp";
+import { wpFetchSafe } from "@/lib/wp";
 
 type WpDocumento = {
   id: number;
@@ -70,8 +70,9 @@ function dateKey(value?: string) {
 }
 
 export default async function DocumentosPage() {
-  const docs = await wpFetch<WpDocumento[]>(
-    "/documentos_sitcas?per_page=100&orderby=date&order=desc"
+  const docs = await wpFetchSafe<WpDocumento[]>(
+    "/documentos_sitcas?per_page=100&orderby=date&order=desc",
+    []
   );
 
   const items = Array.isArray(docs) ? docs : [];
@@ -94,8 +95,9 @@ export default async function DocumentosPage() {
 
   let mediaById = new Map<number, WpMedia>();
   if (mediaIds.length > 0) {
-    const media = await wpFetch<WpMedia[]>(
-      `/media?include=${mediaIds.join(",")}&per_page=${mediaIds.length}`
+    const media = await wpFetchSafe<WpMedia[]>(
+      `/media?include=${mediaIds.join(",")}&per_page=${mediaIds.length}`,
+      []
     );
     if (Array.isArray(media)) {
       mediaById = new Map(media.map((m) => [m.id, m]));

@@ -1,7 +1,7 @@
 // apps/web/app/comunicados/[slug]/page.tsx
 import Link from "next/link";
 import Image from "next/image";
-import { wpFetch } from "@/lib/wp";
+import { wpFetch, wpFetchSafe } from "@/lib/wp";
 
 type WPMedia = {
   id: number;
@@ -71,8 +71,9 @@ export default async function ComunicadoPage({
   const { slug } = await params;
 
   // Traemos el comunicado por slug + _embed para featured image
-  const arr = await wpFetch<WPComunicado[]>(
-    `/comunicados?slug=${encodeURIComponent(slug)}&_embed`
+  const arr = await wpFetchSafe<WPComunicado[]>(
+    `/comunicados?slug=${encodeURIComponent(slug)}&_embed`,
+    []
   );
 
   const post = Array.isArray(arr) && arr.length > 0 ? arr[0] : null;

@@ -8,7 +8,17 @@ export type WpComunicado = {
   _embedded?: any;
 };
 
-export { wpFetch } from "./wordpress";
+import { wpFetch } from "./wordpress";
+export { wpFetch };
+
+export async function wpFetchSafe<T>(path: string, fallback: T): Promise<T> {
+  try {
+    return await wpFetch<T>(path);
+  } catch (error) {
+    console.error("wpFetchSafe error", { path, error });
+    return fallback;
+  }
+}
 
 const WP_BASE = process.env.WP_BASE_URL;
 

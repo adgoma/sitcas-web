@@ -3,7 +3,7 @@ import Link from "next/link";
 import HomeSlider from "./components/HomeSlider";
 import GalleryGrid from "./components/GalleryGrid";
 import LatestComunicados from "./components/LatestComunicados";
-import { wpFetch } from "@/lib/wp";
+import { wpFetchSafe } from "@/lib/wp";
 
 type Slide = {
   id: number;
@@ -66,16 +66,19 @@ function stripHtml(html: string) {
 }
 
 export default async function Home() {
-  const slides = await wpFetch<Slide[]>(
-    "/slider?_embed&per_page=10&orderby=date&order=asc"
+  const slides = await wpFetchSafe<Slide[]>(
+    "/slider?_embed&per_page=10&orderby=date&order=asc",
+    []
   );
 
-  const comunicados = await wpFetch<Comunicado[]>(
-    "/comunicados?per_page=6&orderby=date&order=desc"
+  const comunicados = await wpFetchSafe<Comunicado[]>(
+    "/comunicados?per_page=6&orderby=date&order=desc",
+    []
   );
 
-  const galerias = await wpFetch<WpGaleria[]>(
-    "/galeria?per_page=12&orderby=date&order=desc"
+  const galerias = await wpFetchSafe<WpGaleria[]>(
+    "/galeria?per_page=12&orderby=date&order=desc",
+    []
   );
 
   const latest = Array.isArray(comunicados) ? comunicados : [];
@@ -91,8 +94,9 @@ export default async function Home() {
 
   let mediaById = new Map<number, WpMedia>();
   if (mediaIds.length > 0) {
-    const media = await wpFetch<WpMedia[]>(
-      `/media?include=${mediaIds.join(",")}&per_page=${mediaIds.length}`
+    const media = await wpFetchSafe<WpMedia[]>(
+      `/media?include=${mediaIds.join(",")}&per_page=${mediaIds.length}`,
+      []
     );
     if (Array.isArray(media)) {
       mediaById = new Map(media.map((m) => [m.id, m]));

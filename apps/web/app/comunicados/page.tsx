@@ -1,6 +1,6 @@
 // apps/web/app/comunicados/page.tsx
 import Link from "next/link";
-import { wpFetch } from "@/lib/wp";
+import { wpFetchSafe } from "@/lib/wp";
 
 type Comunicado = {
   id: number;
@@ -52,8 +52,9 @@ function clamp(text: string, max = 170) {
 }
 
 export default async function ComunicadosPage() {
-  const comunicados = await wpFetch<Comunicado[]>(
-    "/comunicados?_embed&per_page=30&orderby=date&order=desc"
+  const comunicados = await wpFetchSafe<Comunicado[]>(
+    "/comunicados?_embed&per_page=30&orderby=date&order=desc",
+    []
   );
 
   const items = Array.isArray(comunicados) ? comunicados : [];
